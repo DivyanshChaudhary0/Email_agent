@@ -3,6 +3,8 @@ import { Router } from "express";
 import axios from 'axios';
 import config from '../config/config.js';
 import querystring from 'querystring';
+import userModel from "../models/user.model.js";
+import { profile } from "console";
 const router = Router();
 
 router.get('/google/callback', async (req, res) => {
@@ -42,9 +44,26 @@ router.get('/google/callback', async (req, res) => {
 
         const userProfile = profileResponse.data;
 
+        const userAlreadyExist = await userModel.findOne({email: userProfile.email});
+
+        if(userAlreadyExist){
+            userAlreadyExist.refresh_token = refresh_token || userAlreadyExist.refresh_token;
+            await userAlreadyExist.save();
+
+            return res.status(200).json({
+                message: "User logged in",
+                profile: userProfile
+            })
+        }
+
+        const newUser = await userModel.create({
+            name: userProfile.name,
+            email: userProfile.email,
+            refresh_token: refresh_token
+        })
+
         res.status(200).json({
             message: 'Authentication successful',
-            tokens: { access_token, refresh_token },
             profile: userProfile
         });
 

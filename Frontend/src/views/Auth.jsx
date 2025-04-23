@@ -8,7 +8,6 @@ const Auth = () => {
     const login = useGoogleLogin({
         onSuccess: (response) => {
           const { code } = response
-            alert('Login successful')
             try {
                 axios.get(`http://localhost:3000/api/auth/google/callback?code=${code}`)
                 .then((res) => {
