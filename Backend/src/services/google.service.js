@@ -1,9 +1,10 @@
 import { google } from "googleapis";
 import userModel from "../models/user.model.js";
+import config from "../config/config.js";
 
-const CLIENT_ID = process.env.CLIENT_ID;
-const CLIENT_SECRET = process.env.CLIENT_SECRET;
-const REDIRECT_URI = process.env.REDIRECT_URI;
+const CLIENT_ID = config.GOOGLE_CLIENT_ID
+const CLIENT_SECRET = config.GOOGLE_CLIENT_SECRET
+const REDIRECT_URI = config.GOOGLE_REDIRECT_URI;
 
 /**
  * Create OAuth2 client for a user using their refresh token.
