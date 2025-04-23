@@ -36,7 +36,6 @@ router.get('/google/callback', async (req, res) => {
 
         const { access_token, refresh_token, id_token } = tokenResponse.data;
 
-        // Rest of your code remains the same
         const profileResponse = await axios.get('https://www.googleapis.com/oauth2/v2/userinfo', {
             headers: { Authorization: `Bearer ${access_token}` }
         });
@@ -48,12 +47,12 @@ router.get('/google/callback', async (req, res) => {
             tokens: { access_token, refresh_token },
             profile: userProfile
         });
+
     } catch (error) {
         console.error('OAuth error details:', error.response?.data || error.message);
         if (error.response?.config) {
             console.error('Request URL:', error.response.config.url);
             console.error('Request method:', error.response.config.method);
-            // Don't log the full headers/data as they may contain sensitive info
         }
         res.status(500).json({ error: 'Authentication failed' });
     }
