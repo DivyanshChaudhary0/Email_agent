@@ -11,11 +11,14 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.10.2",
     "axios": "^1.8.4",
     "bcrypt": "^5.1.1",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "googleapis": "^148.0.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.13.2"
+    "mongoose": "^8.13.2",
+    "zod": "^3.24.3"
   }
 }

@@ -4,7 +4,6 @@ import axios from 'axios';
 import config from '../config/config.js';
 import querystring from 'querystring';
 import userModel from "../models/user.model.js";
-import { profile } from "console";
 const router = Router();
 
 router.get('/google/callback', async (req, res) => {
