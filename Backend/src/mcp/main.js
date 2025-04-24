@@ -3,6 +3,10 @@ import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
 import googleService from "../services/google.service.js";
+import mongoose from "mongoose";
+import config from "../config/config.js";
+
+mongoose.connect(config.MONGO_URI).then(() => console.log("db connected"));
 
 const server = new McpServer({
   name: "example-server",
@@ -14,7 +18,6 @@ server.tool("sendemail", "send a mail to a email address", {
     message: z.string(),
     to: z.string(),
     subject: z.string()
-
 }, async({ userid, to, subject, message }) => {         // mendetory to write async here and return a string
     try{
         await googleService.sendEmail(userid, to, subject, message);

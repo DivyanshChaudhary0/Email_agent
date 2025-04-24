@@ -6,7 +6,6 @@ import client from "./src/mcp/mcp.client.js"
 
 connect();
 
-
 app.listen(config.PORT, function(){
     console.log(`app is running on port ${config.PORT}`);
 })
