@@ -18,13 +18,13 @@ const client = new Client({
 await client.connect(transport).then(() => {
   console.log("Connected to MCP server");
 });
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
+
 async function getResponse() {
   const tools = (await client.listTools()).tools;
   const response = await ai.models.generateContent({
     model: "gemini-2.5-flash-preview-04-17",
     contents:
-      "write an email to sambhav12wakhariya@gmail.com, on topic of future of AI agent , decide subject and message on your own, use userID:680887623a729b61cb8295ab",
+      "write an email to sambhav12wakhariya@gmail.com, on topic of future of AI agent , decide subject and message on your own, use userID:68088b462ea4ff454545a0d2",
     config: {
       tools: [
         {
@@ -45,6 +45,9 @@ async function getResponse() {
 
   const functionCall = response.candidates[ 0 ].content.parts[ 0 ].functionCall || response.candidates[ 0 ].content.parts[ 1 ].functionCall
   
+  console.log(functionCall);
+  
+
   const toolResult = await client.callTool({
       name: functionCall.name,
       arguments: functionCall.args
