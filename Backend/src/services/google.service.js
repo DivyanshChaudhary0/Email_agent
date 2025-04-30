@@ -19,6 +19,7 @@ async function getAuthenticatedClient(userId) {
     CLIENT_SECRET,
     REDIRECT_URI
   );
+
   oAuth2Client.setCredentials({ refresh_token: user.refresh_token });
 
   return oAuth2Client;
@@ -28,8 +29,11 @@ async function getAuthenticatedClient(userId) {
  * Send an email on behalf of a user.
  */
 async function sendEmail(userId, to, subject, message) {
+  console.log("calling sendEmail");
   const auth = await getAuthenticatedClient(userId);
   const gmail = google.gmail({ version: "v1", auth });
+
+  
 
   const emailLines = [
     `To: ${to}`,
@@ -50,6 +54,10 @@ async function sendEmail(userId, to, subject, message) {
     requestBody: {
       raw: encodedMessage,
     },
+  }).then((res) => {
+    console.log(res);
+  }).catch((err) => {
+    console.log(err);
   });
 }
 

@@ -45,14 +45,14 @@ async function getResponse() {
 
   const functionCall = response.candidates[ 0 ].content.parts[ 0 ].functionCall || response.candidates[ 0 ].content.parts[ 1 ].functionCall
   
-  console.log(functionCall);
-  
+  console.log(functionCall.name);
+  console.log(functionCall.args);
 
   const toolResult = await client.callTool({
-      name: functionCall.name,
-      arguments: functionCall.args
+      name: functionCall?.name,
+      arguments: functionCall?.args
   })
-  
+
   console.log(toolResult);
   
 }

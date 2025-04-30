@@ -6,6 +6,8 @@ import googleService from "../services/google.service.js";
 import mongoose from "mongoose";
 import config from "../config/config.js";
 
+console.log(googleService);
+
 mongoose.connect(config.MONGO_URI).then(() => console.log("db connected"));
 
 const server = new McpServer({
@@ -24,7 +26,7 @@ server.tool("sendemail", "send a mail to a email address", {
         return "Email send successfully"
     }
     catch(err){
-        return "Error in sending email"
+        return "Error in sending email" + err
     }
 })
 
